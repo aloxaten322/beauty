@@ -1,12 +1,11 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Services from "./components/Services";
-
 import Portfolio from "./components/Portfolio";
 import About from "./components/About";
 import Contacts from "./components/Contacts";
-const Home: React.FC = () => <div>Главная – placeholder</div>;
+import NotFound from "./components/NotFound";
+import Home from "./components/Home";
 
 function App() {
   return (
@@ -18,6 +17,7 @@ function App() {
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>

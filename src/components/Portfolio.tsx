@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { portfolio, type PortfolioItem } from "../data/masterData";
+import { SEO } from "./SEO";
 import styles from "./Portfolio.module.css";
 
 // Simple modal component
@@ -42,42 +43,32 @@ const Portfolio: React.FC = () => {
   const closeModal = () => setSelected(null);
 
   return (
-    <section className={styles.portfolioSection} aria-labelledby="portfolio-title">
-      <h1 id="portfolio-title" className={styles.title}>Портфолио работ</h1>
-      {activeItems.length === 0 ? (
-        <p>Пока нет опубликованных работ.</p>
-      ) : (
-        <div className={styles.grid}>
-          {activeItems.map((item) => (
-            <figure
-              key={item.id}
-              className={styles.figure}
-              onClick={() => openModal(item)}
-              role="button"
-              tabIndex={0}
-              aria-label={`Открыть ${item.title}`}
-            >
-              <img
-                src={item.image ?? placeholder}
-                alt={item.title}
-                className={styles.img}
-                loading="lazy"
-              />
-              <figcaption className={styles.caption}>
-                {item.title} – {item.category}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      )}
-      {selected && (
-        <Modal
-          src={selected.image ?? placeholder}
-          alt={selected.title}
-          onClose={closeModal}
-        />
-      )}
-    </section>
+    <>
+      <SEO title="Портфолио | Имя мастера | Костанай" description="Работы мастера красоты" />
+      <section className={styles.portfolioSection} aria-labelledby="portfolio-title">
+        <h1 id="portfolio-title" className={styles.title}>Портфолио работ</h1>
+        {activeItems.length === 0 ? (
+          <p>Пока нет опубликованных работ.</p>
+        ) : (
+          <div className={styles.grid}>
+            {activeItems.map((item) => (
+              <figure
+                key={item.id}
+                className={styles.figure}
+                onClick={() => openModal(item)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Открыть ${item.title}`}
+              >
+                <img src={item.image ?? placeholder} alt={item.title} className={styles.img} loading="lazy" />
+                <figcaption className={styles.caption}>{item.title} – {item.category}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
+        {selected && <Modal src={selected.image ?? placeholder} alt={selected.title} onClose={closeModal} />}
+      </section>
+    </>
   );
 };
 
