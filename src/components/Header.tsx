@@ -1,46 +1,84 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { masterInfo } from "../data/masterData";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { displayMasterName, instagramProfileUrl } from "../data/masterData";
+import styles from "./Header.module.css";
+
+const navigationItems = [
+  { to: "/services", label: "Услуги" },
+  { to: "/portfolio", label: "Работы" },
+  { to: "/about", label: "О мастере" },
+  { to: "/contacts", label: "Контакты" },
+];
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    if (!menuOpen) return;
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
 
-  const instagramUrl = masterInfo.instagramUsername && masterInfo.instagramUsername !== "your_username"
-    ? `https://www.instagram.com/${masterInfo.instagramUsername}/`
-    : "#";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="site-header">
-      <nav className="nav container" aria-label="Главное меню">
-        <div className="nav-left">
-          <Link to="/" className="site-name">
-            {masterInfo.name}
-          </Link>
-        </div>
+    <header className={styles.header}>
+      <nav className={styles.nav} aria-label="Главное меню">
+        <Link to="/" className={styles.brand} onClick={closeMenu}>
+          {displayMasterName}
+        </Link>
+
         <button
-          className="burger"
-          aria-label="Открыть меню"
+          type="button"
+          className={styles.burger}
+          aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
           aria-expanded={menuOpen}
-          onClick={toggleMenu}
+          aria-controls="primary-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
         >
-          <span className="burger-lines" />
+          <span className={styles.burgerIcon} aria-hidden="true" />
         </button>
-        <ul className={`nav-links ${menuOpen ? "open" : ""}`} role="menu">
-          <li role="none"><Link to="/services" role="menuitem">Услуги</Link></li>
-          <li role="none"><Link to="/portfolio" role="menuitem">Работы</Link></li>
-          <li role="none"><Link to="/about" role="menuitem">О мастере</Link></li>
-          <li role="none"><Link to="/contacts" role="menuitem">Контакты</Link></li>
-          <li role="none">
-            {instagramUrl === "#" ? (
-              <button className="cta" disabled title="Замените username в masterData.ts">
-                Записаться
-              </button>
-            ) : (
-              <a href={instagramUrl} className="cta" target="_blank" rel="noopener noreferrer">
+
+        <ul
+          id="primary-navigation"
+          className={`${styles.links} ${menuOpen ? styles.linksOpen : ""}`}
+        >
+          {navigationItems.map((item) => (
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
+                className={({ isActive }) =>
+                  `${styles.link} ${isActive ? styles.active : ""}`
+                }
+                onClick={closeMenu}
+              >
+                {item.label}
+              </NavLink>
+            </li>
+          ))}
+          <li>
+            {instagramProfileUrl ? (
+              <a
+                href={instagramProfileUrl}
+                className={styles.booking}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Записаться
               </a>
+            ) : (
+              <button
+                type="button"
+                className={styles.booking}
+                disabled
+                title="Ссылка для записи появится после настройки профиля Instagram."
+              >
+                Запись пока недоступна
+              </button>
             )}
           </li>
         </ul>

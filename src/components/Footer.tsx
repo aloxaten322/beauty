@@ -1,25 +1,34 @@
 import React from "react";
-import { masterInfo } from "../data/masterData";
+import { displayMasterName, instagramProfileUrl, masterInfo } from "../data/masterData";
+import styles from "./Footer.module.css";
+
+const currentYear = new Date().getFullYear();
 
 const Footer: React.FC = () => {
-  const currentYear = new Date().getFullYear();
-  const instagramUrl = masterInfo.instagramUsername && masterInfo.instagramUsername !== "your_username"
-    ? `https://www.instagram.com/${masterInfo.instagramUsername}/`
-    : "#";
-
   return (
-    <footer className="site-footer">
-      <div className="footer-content">
-        {masterInfo.name && masterInfo.name !== "Имя мастера" && <span className="master-name">{masterInfo.name}</span>}
-        <span className="master-city">{masterInfo.city}</span>
-        {instagramUrl !== "#" && (
-          <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="instagram-link">
+    <footer className={styles.footer}>
+      <div className={styles.inner}>
+        <div className={styles.identity}>
+          <span className={styles.name}>{displayMasterName}</span>
+          {masterInfo.city ? (
+            <span className={styles.city}>{masterInfo.city}</span>
+          ) : (
+            <span className={styles.city}>Местоположение будет указано позже</span>
+          )}
+        </div>
+        {instagramProfileUrl && (
+          <a
+            href={instagramProfileUrl}
+            className={styles.socialLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Instagram
           </a>
         )}
       </div>
-      <div className="footer-bottom">
-        © {currentYear} {masterInfo.name}. All rights reserved.
+      <div className={styles.legal}>
+        © {currentYear} {displayMasterName}
       </div>
     </footer>
   );

@@ -1,0 +1,161 @@
+.header {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  border-bottom: 1px solid var(--color-sand);
+  background: var(--color-ivory);
+}
+
+.nav {
+  display: flex;
+  width: min(calc(100% - 3rem), 1200px);
+  min-height: 88px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-inline: auto;
+}
+
+.brand {
+  color: var(--color-charcoal);
+  font-family: var(--heading);
+  font-size: 1.45rem;
+  line-height: 1.15;
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--color-mocha);
+  font-size: 0.94rem;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.link:hover,
+.link.active {
+  color: var(--color-charcoal);
+}
+
+.booking {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.35rem;
+  border: 1px solid var(--color-mocha);
+  border-radius: 2px;
+  background: var(--color-mocha);
+  color: var(--color-ivory);
+  cursor: pointer;
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.booking:hover:not(:disabled) {
+  border-color: var(--color-charcoal);
+  background: var(--color-charcoal);
+}
+
+.booking:disabled {
+  border-color: var(--color-sand);
+  background: var(--color-sand);
+  color: var(--color-charcoal);
+  cursor: not-allowed;
+}
+
+.burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-sand);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.burgerIcon {
+  position: relative;
+  width: 18px;
+  height: 14px;
+  border-top: 2px solid var(--color-charcoal);
+  border-bottom: 2px solid var(--color-charcoal);
+}
+
+.burgerIcon::before {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  left: 0;
+  border-top: 2px solid var(--color-charcoal);
+  content: "";
+}
+
+@media (max-width: 760px) {
+  .nav {
+    width: min(calc(100% - 2rem), 1200px);
+    min-height: 72px;
+  }
+
+  .brand {
+    font-size: 1.3rem;
+  }
+
+  .burger {
+    display: inline-flex;
+  }
+
+  .links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    display: none;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 1rem 1rem;
+    border-bottom: 1px solid var(--color-sand);
+    background: var(--color-ivory);
+  }
+
+  .linksOpen {
+    display: flex;
+  }
+
+  .links li:not(:last-child) .link {
+    width: 100%;
+    border-bottom: 1px solid var(--color-sand);
+  }
+
+  .link {
+    padding: 0.65rem 0;
+  }
+
+  .booking {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link,
+  .booking {
+    transition: none;
+  }
+}
