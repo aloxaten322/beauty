@@ -1,0 +1,41 @@
+/* About component styling */
+.about {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+}
+
+@media (max-width: 480px) {
+  .about {
+    flex-direction: column;
+  }
+}
+
+.photoWrapper {
+  flex: 0 0 auto;
+}
+
+.photo {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.content {
+  flex: 1 1 auto;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
