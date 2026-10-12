@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import Services from "./components/Services";
 
-const Services: React.FC = () => <div>Услуги – placeholder</div>;
 const Portfolio: React.FC = () => <div>Работы – placeholder</div>;
 const About: React.FC = () => <div>О мастере – placeholder</div>;
 const Contact: React.FC = () => <div>Контакты – placeholder</div>;
