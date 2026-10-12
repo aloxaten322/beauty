@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { services, masterInfo } from "../data/masterData";
 import styles from "./Services.module.css";
 
@@ -41,15 +40,20 @@ const Services: React.FC = () => {
                 </div>
               )}
 
-              <Link
-                to={instagramUrl}
-                className={styles.ctaButton}
-                target="_blank"
-                rel="noopener noreferrer"
-                disabled={masterInfo.instagramUsername === "your_username"}
-              >
-                Записаться
-              </Link>
+              {masterInfo.instagramUsername === "your_username" ? (
+                <button className={styles.ctaButton} disabled>
+                  Записаться
+                </button>
+              ) : (
+                <a
+                  href={instagramUrl}
+                  className={styles.ctaButton}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Записаться
+                </a>
+              )}
             </article>
           ))}
         </div>
