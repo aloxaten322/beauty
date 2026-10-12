@@ -31,7 +31,7 @@ const Header: React.FC = () => {
           <li role="none"><Link to="/services" role="menuitem">Услуги</Link></li>
           <li role="none"><Link to="/portfolio" role="menuitem">Работы</Link></li>
           <li role="none"><Link to="/about" role="menuitem">О мастере</Link></li>
-          <li role="none"><Link to="/contact" role="menuitem">Контакты</Link></li>
+          <li role="none"><Link to="/contacts" role="menuitem">Контакты</Link></li>
           <li role="none">
             {instagramUrl === "#" ? (
               <button className="cta" disabled title="Замените username в masterData.ts">

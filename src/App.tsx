@@ -5,7 +5,7 @@ import Services from "./components/Services";
 
 import Portfolio from "./components/Portfolio";
 import About from "./components/About";
-const Contact: React.FC = () => <div>Контакты – placeholder</div>;
+import Contacts from "./components/Contacts";
 const Home: React.FC = () => <div>Главная – placeholder</div>;
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/contacts" element={<Contacts />} />
         </Routes>
       </Layout>
     </BrowserRouter>

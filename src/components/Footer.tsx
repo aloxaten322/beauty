@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="site-footer">
       <div className="footer-content">
-        <span className="master-name">{masterInfo.name}</span>
+        {masterInfo.name && masterInfo.name !== "Имя мастера" && <span className="master-name">{masterInfo.name}</span>}
         <span className="master-city">{masterInfo.city}</span>
         {instagramUrl !== "#" && (
           <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="instagram-link">
