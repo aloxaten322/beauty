@@ -29,10 +29,10 @@ const Contacts: React.FC = () => {
       role="region"
       aria-labelledby="contacts-heading"
     >
-      <h1 className="sr-only">Контакты</h1>
-      <h2 id="contacts-heading" className={styles.heading}>
+      <p className="sr-only">Контакты</p>
+      <h1 id="contacts-heading" className={styles.heading}>
         Запишитесь на процедуру
-      </h2>
+      </h1>
 
       {masterInfo.city && (
         <p className={styles.city}>Город: {masterInfo.city}</p>

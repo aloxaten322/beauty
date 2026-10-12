@@ -43,7 +43,7 @@ const Portfolio: React.FC = () => {
 
   return (
     <section className={styles.portfolioSection} aria-labelledby="portfolio-title">
-      <h2 id="portfolio-title" className={styles.title}>Портфолио работ</h2>
+      <h1 id="portfolio-title" className={styles.title}>Портфолио работ</h1>
       {activeItems.length === 0 ? (
         <p>Пока нет опубликованных работ.</p>
       ) : (

@@ -25,7 +25,7 @@ const About: React.FC = () => {
       role="region"
       aria-labelledby="about-heading"
     >
-      <h2 id="about-heading" className={styles.title}>О мастере</h2>
+      <h1 id="about-heading" className={styles.title}>О мастере</h1>
       <figure className={styles.photoWrapper}>
         <img
           src={photo || placeholder}

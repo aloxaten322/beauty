@@ -11,9 +11,9 @@ const Services: React.FC = () => {
 
   return (
     <section className={styles.servicesSection} aria-labelledby="services-title">
-      <h2 id="services-title" className={styles.title}>
+      <h1 id="services-title" className={styles.title}>
         Услуги
-      </h2>
+      </h1>
 
       {activeServices.length > 0 ? (
         <div className={styles.servicesList}>

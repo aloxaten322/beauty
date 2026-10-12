@@ -1,32 +1,22 @@
-# React + TypeScript + Vite
+# Документация проекта
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Данный проект представляет собой лендинг для бьюти-мастера.
 
-Currently, two official plugins are available:
+## Настройка данных
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Все основные параметры мастера хранятся в файле `src/data/masterData.ts`:
+- **Имя мастера и город**: обновите поля `name` и `city`.
+- **Instagram**: укажите ваш `instagramUsername` для работы кнопок записи.
+- **О мастере**: отредактируйте объект `about` (тексты, образование, опыт).
+- **Услуги**: редактируйте массив `services` (название, цена, описание, `isActive` для включения/выключения).
 
-## React Compiler
+## Портфолио
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Добавляйте новые фотографии в папку `/public/images/`.
+- Обновите массив `portfolio` в `src/data/masterData.ts`, указав путь к файлу изображения.
+- Замените заглушку `/images/portfolio-placeholder.jpg` на свои работы.
 
-## Expanding the Oxlint configuration
+## Запуск и сборка
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- **Локальная разработка**: `npm run dev`
+- **Сборка для продакшена**: `npm run build`
