@@ -188,10 +188,6 @@
     padding-block: 1.5rem;
   }
 
-  .serviceItem:nth-child(5) {
-    background: color-mix(in srgb, var(--color-ivory) 88%, transparent);
-  }
-
   .serviceItemWithImage {
     grid-template-columns: minmax(0, 1fr);
   }
