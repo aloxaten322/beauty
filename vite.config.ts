@@ -38,14 +38,18 @@ const renderSeoTags = (metadata: SeoMetadata) => {
 
 const staticSeoPages = (): Plugin => {
   let outputDirectory = resolve(process.cwd(), 'dist')
+  let isSsrBuild = false
 
   return {
     name: 'static-route-seo-pages',
     apply: 'build',
     configResolved(config) {
       outputDirectory = resolve(config.root, config.build.outDir)
+      isSsrBuild = Boolean(config.build.ssr)
     },
     async closeBundle() {
+      if (isSsrBuild) return
+
       const templatePath = resolve(outputDirectory, 'index.html')
       const template = await readFile(templatePath, 'utf8')
       const markerPattern = /<!-- ROUTE_SEO_START -->[\s\S]*?<!-- ROUTE_SEO_END -->/
@@ -54,14 +58,22 @@ const staticSeoPages = (): Plugin => {
         throw new Error('Could not find the route SEO markers in the built index.html.')
       }
 
-      const writePage = async (fileName: string, metadata: SeoMetadata) => {
-        const html = template.replace(markerPattern, renderSeoTags(metadata))
+      const writePage = async (
+        fileName: string,
+        metadata: SeoMetadata,
+        isPrerendered = false,
+      ) => {
+        const tags = renderSeoTags(metadata).replaceAll(
+          ' data-initial-seo="true"',
+          isPrerendered ? '' : ' data-initial-seo="true"',
+        )
+        const html = template.replace(markerPattern, tags)
         await writeFile(resolve(outputDirectory, fileName), html, 'utf8')
       }
 
       for (const [route, metadata] of Object.entries(routeSeo)) {
         const fileName = route === '/' ? 'index.html' : `${route.slice(1)}.html`
-        await writePage(fileName, metadata)
+        await writePage(fileName, metadata, true)
       }
 
       await writePage('404.html', notFoundSeo)
@@ -72,6 +84,11 @@ const staticSeoPages = (): Plugin => {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), staticSeoPages()],
+  define: {
+    __BUILD_YEAR__: JSON.stringify(
+      Number(process.env.BUILD_YEAR ?? new Date().getFullYear()),
+    ),
+  },
   server: {
     port: 3000
   }

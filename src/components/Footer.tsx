@@ -2,7 +2,9 @@ import React from "react";
 import { displayMasterName, instagramProfileUrl, masterInfo } from "../data/masterData";
 import styles from "./Footer.module.css";
 
-const currentYear = new Date().getFullYear();
+declare const __BUILD_YEAR__: number;
+
+const currentYear = __BUILD_YEAR__;
 
 const Footer: React.FC = () => {
   return (

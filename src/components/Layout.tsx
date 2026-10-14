@@ -1,7 +1,10 @@
-import React, { type ReactNode, useLayoutEffect } from "react";
+import React, { type ReactNode, useEffect, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
+
+const useIsomorphicLayoutEffect =
+  typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,7 +13,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { pathname } = useLocation();
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (
       window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
       !("IntersectionObserver" in window)
