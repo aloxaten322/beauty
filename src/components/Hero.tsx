@@ -1,27 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { displayMasterName, instagramProfileUrl, masterInfo } from "../data/masterData";
+import { about, displayMasterName, instagramProfileUrl, masterInfo } from "../data/masterData";
 import { SEO } from "./SEO";
 import styles from "./Hero.module.css";
 
-// Replace with a real portrait file in public/images when one is available.
-const heroPortrait: string | undefined = undefined;
-
 const Hero: React.FC = () => {
+  const nameForHeadline = displayMasterName === "Анастасия" ? "Анастасии" : displayMasterName;
+
   return (
     <>
       <SEO
-        title={`${displayMasterName} | ${masterInfo.city}`}
-        description="Услуги бьюти-мастера: оформление и коррекция бровей, перманентный макияж в Костанае."
+        route="/"
       />
       <section className={styles.hero} aria-labelledby="home-title">
-        <div className={styles.heroContent}>
+        <div className={styles.heroContent} data-reveal>
           <h1 className={styles.title} id="home-title">
-            Естественная красота
+            <span className={styles.firstWord}>Перманентный</span>{" "}
+            макияж от {nameForHeadline}
           </h1>
-          <p className={styles.subtitle}>Оформление бровей и перманентный макияж</p>
           <p className={styles.description}>
-            Аккуратная форма, внимание к деталям и индивидуальный подход к каждому клиенту.
+            Подчеркните свою естественную красоту с помощью перманентного макияжа. Деликатно подчеркну достоинства, сохранив естественность, эстетику и гармонию образа.
           </p>
           <p className={styles.location}>{masterInfo.city}</p>
           <div className={styles.ctaButtons}>
@@ -45,10 +43,10 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        <figure className={styles.portrait}>
-          {heroPortrait ? (
+        <figure className={styles.portrait} data-reveal>
+          {about.photo ? (
             <img
-              src={heroPortrait}
+              src={about.photo}
               alt="Портрет бьюти-мастера"
               className={styles.image}
               loading="eager"

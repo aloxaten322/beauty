@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://beauty-mu-ten.vercel.app/sitemap.xml

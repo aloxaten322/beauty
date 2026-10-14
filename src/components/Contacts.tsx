@@ -1,5 +1,5 @@
 import React from "react";
-import { contact, displayMasterName, instagramProfileUrl, masterInfo } from "../data/masterData";
+import { contact, instagramProfileUrl, masterInfo } from "../data/masterData";
 import { SEO } from "./SEO";
 import styles from "./Contacts.module.css";
 
@@ -13,23 +13,25 @@ const Contacts: React.FC = () => {
   return (
     <>
       <SEO
-        title={`Контакты | ${displayMasterName} | ${masterInfo.city}`}
-        description="Контактная информация и доступный способ записи к бьюти-мастеру."
+        route="/contacts"
       />
       <section className={styles.contacts} aria-labelledby="contacts-heading">
-        <div className={styles.introduction}>
+        <div className={styles.introduction} data-reveal>
           <h1 id="contacts-heading" className={styles.heading}>
             Контакты
           </h1>
           <p className={styles.city}>{masterInfo.city}</p>
           <p className={styles.note}>
-            Подтверждённые контактные данные и способ записи появятся здесь позже.
+            Буду рада ответить на ваши вопросы и помочь подобрать подходящую процедуру перманентного макияжа.
           </p>
         </div>
 
-        <div className={styles.contactPanel}>
-          <h2 className={styles.panelTitle}>Запись</h2>
-          {hasContactDetails ? (
+        <div className={styles.contactPanel} data-reveal>
+          <h2 className={styles.panelTitle}>Запись на процедуру</h2>
+          <p className={styles.emptyNote}>
+            Чтобы записаться или уточнить подробности, напишите мне в Instagram. Обсудим ваши пожелания и выберем удобное время.
+          </p>
+          {hasContactDetails && (
             <dl className={styles.list}>
               {phone && (
                 <div className={styles.listItem}>
@@ -52,8 +54,6 @@ const Contacts: React.FC = () => {
                 </div>
               )}
             </dl>
-          ) : (
-            <p className={styles.emptyNote}>Телефон, адрес и часы работы пока не указаны.</p>
           )}
 
           {instagramProfileUrl ? (
@@ -63,7 +63,7 @@ const Contacts: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Записаться через Instagram
+              Написать в Instagram ↗
             </a>
           ) : phone && phoneHref ? (
             <a href={`tel:${phoneHref}`} className={styles.cta}>

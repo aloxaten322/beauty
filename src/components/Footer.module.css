@@ -1,7 +1,6 @@
 .footer {
   width: 100%;
   margin-top: auto;
-  background: var(--color-charcoal);
   color: var(--color-ivory);
 }
 
@@ -41,16 +40,30 @@
 .socialLink {
   color: var(--color-ivory);
   font-size: 0.94rem;
+  text-decoration-color: transparent;
   text-underline-offset: 0.25rem;
+  transition:
+    color var(--motion-duration-ui) var(--motion-easing-standard),
+    text-decoration-color var(--motion-duration-ui) var(--motion-easing-standard);
 }
 
 .socialLink:hover {
   color: var(--color-sand);
+  text-decoration-color: currentColor;
+}
+
+.socialLink:focus-visible {
+  outline-color: var(--color-ivory);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socialLink {
+    transition: none;
+  }
 }
 
 .legal {
   padding-block: 0.8rem 1rem;
-  border-top: 1px solid var(--color-sand);
   color: var(--color-sand);
   font-size: 0.82rem;
 }

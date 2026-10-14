@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { displayMasterName, masterInfo, portfolio, type PortfolioItem } from "../data/masterData";
+import { portfolio, type PortfolioItem } from "../data/masterData";
 import { SEO } from "./SEO";
 import styles from "./Portfolio.module.css";
 
@@ -108,23 +108,20 @@ const Portfolio: React.FC = () => {
   return (
     <>
       <SEO
-        title={`Портфолио | ${displayMasterName} | ${masterInfo.city}`}
-        description="Фотографии работ появятся здесь после добавления оригинальных снимков."
+        route="/portfolio"
       />
       <section className={styles.portfolioSection} aria-labelledby="portfolio-title">
-        <header className={styles.headingGroup}>
+        <header className={styles.headingGroup} data-reveal>
           <h1 id="portfolio-title" className={styles.title}>
             Портфолио работ
           </h1>
-          <p className={styles.intro}>
-            Здесь будут фотографии работ мастера. Пока реальные снимки не добавлены.
-          </p>
+          <p className={styles.intro}>Фотографии услуг мастера.</p>
         </header>
 
         {activeItems.length > 0 ? (
           <div className={styles.grid}>
             {activeItems.map((item) => (
-              <figure key={item.id} className={styles.figure}>
+              <figure key={item.id} className={styles.figure} data-reveal>
                 <button
                   type="button"
                   className={styles.workButton}
@@ -156,7 +153,9 @@ const Portfolio: React.FC = () => {
             ))}
           </div>
         ) : (
-          <p className={styles.emptyState}>Фотографии работ появятся здесь после добавления оригинальных снимков.</p>
+          <p className={styles.emptyState} data-reveal>
+            Фотографии работ появятся здесь после добавления оригинальных снимков.
+          </p>
         )}
       </section>
 

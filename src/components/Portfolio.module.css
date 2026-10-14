@@ -20,7 +20,7 @@
 .intro {
   max-width: 55ch;
   margin-top: 1.25rem;
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
   line-height: 1.65;
 }
 
@@ -29,6 +29,12 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
+
+.grid > .figure:nth-child(2) { --reveal-delay: 60ms; }
+.grid > .figure:nth-child(3) { --reveal-delay: 120ms; }
+.grid > .figure:nth-child(4) { --reveal-delay: 180ms; }
+.grid > .figure:nth-child(5) { --reveal-delay: 240ms; }
+.grid > .figure:nth-child(6) { --reveal-delay: 300ms; }
 
 .figure {
   min-width: 0;
@@ -52,6 +58,10 @@
   outline-offset: 4px;
 }
 
+.workButton:focus-visible {
+  outline-color: var(--color-charcoal);
+}
+
 .image,
 .photoPlaceholder {
   display: block;
@@ -61,6 +71,19 @@
 
 .image {
   object-fit: cover;
+  transition: transform var(--motion-duration-image) var(--motion-easing-standard);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .workButton:hover .image {
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .workButton:focus-visible .image {
+    transform: scale(1.03);
+  }
 }
 
 .photoPlaceholder,
@@ -94,12 +117,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  padding-top: 0.9rem;
+  padding: 0.9rem 0.75rem 0.75rem;
+  background: color-mix(in srgb, var(--color-ivory) 92%, transparent);
 }
 
 .captionCategory {
   margin: 0;
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
   font-size: 0.88rem;
   line-height: 1.4;
 }
@@ -111,6 +135,17 @@
   font-size: 1.35rem;
   font-weight: 500;
   line-height: 1.3;
+  transition: color var(--motion-duration-ui) var(--motion-easing-standard);
+}
+
+.figure:focus-within .captionTitle {
+  color: var(--color-mocha);
+}
+
+@media (hover: hover) {
+  .figure:hover .captionTitle {
+    color: var(--color-mocha);
+  }
 }
 
 .emptyState {
@@ -128,6 +163,7 @@
   place-items: center;
   padding: 1rem;
   background: rgb(41 39 34 / 94%);
+  animation: modalBackdropIn var(--motion-duration-ui) ease-out both;
 }
 
 .modalDialog {
@@ -138,6 +174,27 @@
   max-height: 90svh;
   overflow: auto;
   background: var(--color-ivory);
+  animation: modalDialogIn var(--motion-duration-ui) var(--motion-easing-standard) both;
+}
+
+@keyframes modalBackdropIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modalImage,
@@ -176,6 +233,40 @@
   cursor: pointer;
   font-size: 1.7rem;
   line-height: 1;
+  transition:
+    background-color var(--motion-duration-ui) var(--motion-easing-standard),
+    border-color var(--motion-duration-ui) var(--motion-easing-standard),
+    transform var(--motion-duration-ui) var(--motion-easing-standard);
+}
+
+@media (hover: hover) {
+  .closeButton:hover {
+    border-color: var(--color-charcoal);
+    background: var(--color-sand);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .closeButton:hover {
+    transform: translateY(-1px);
+  }
+
+  .closeButton:active {
+    transform: translateY(1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modalBackdrop,
+  .modalDialog {
+    animation: none;
+  }
+
+  .image,
+  .captionTitle,
+  .closeButton {
+    transition: none;
+  }
 }
 
 @media (max-width: 680px) {

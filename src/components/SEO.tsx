@@ -1,38 +1,37 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import { getSeoMetadata, type SeoRoute } from "../data/seoMetadata";
 
 interface SEOProps {
-  title: string;
-  description?: string;
-  image?: string; // full URL
-  url?: string; // full URL
+  route: SeoRoute;
 }
 
-export const SEO: React.FC<SEOProps> = ({ title, description, image, url }) => {
+export const SEO: React.FC<SEOProps> = ({ route }) => {
   React.useEffect(() => {
     document.querySelectorAll("[data-initial-seo]").forEach((element) => element.remove());
   }, []);
 
-  const defaultDesc = description || "";
-  const pageUrl = url?.trim();
-  const socialImage = image?.trim();
+  const { title, description, url, image, imageAlt, twitterCard = "summary" } =
+    getSeoMetadata(route);
 
   return (
     <Helmet>
       <title>{title}</title>
-      {defaultDesc && <meta name="description" content={defaultDesc} />}
+      <meta name="description" content={description} />
+      {url && <link rel="canonical" href={url} />}
       {/* Open Graph */}
       <meta property="og:title" content={title} />
-      {defaultDesc && <meta property="og:description" content={defaultDesc} />}
+      <meta property="og:description" content={description} />
       <meta property="og:type" content="website" />
-      {pageUrl && <meta property="og:url" content={pageUrl} />}
-      {socialImage && <meta property="og:image" content={socialImage} />}
+      {url && <meta property="og:url" content={url} />}
+      {image && <meta property="og:image" content={image} />}
+      {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
       <meta property="og:locale" content="ru_RU" />
       {/* Twitter Card */}
-      <meta name="twitter:card" content={socialImage ? "summary_large_image" : "summary"} />
+      <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:title" content={title} />
-      {defaultDesc && <meta name="twitter:description" content={defaultDesc} />}
-      {socialImage && <meta name="twitter:image" content={socialImage} />}
+      <meta name="twitter:description" content={description} />
+      {image && <meta name="twitter:image" content={image} />}
     </Helmet>
   );
 };

@@ -23,23 +23,27 @@
 
 .content {
   display: flex;
-  max-width: 58ch;
+  max-width: 56ch;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.5rem;
   color: var(--color-charcoal);
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: 1.2rem;
+  line-height: 1.75;
 }
 
 .profileNote,
 .story {
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
+}
+
+.story {
+  margin: 0;
 }
 
 .city {
   margin-top: -0.5rem;
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
   font-size: 0.95rem;
 }
 
@@ -108,6 +112,9 @@
   color: var(--color-mocha);
   font-weight: 600;
   text-underline-offset: 0.3em;
+  transition:
+    color var(--motion-duration-ui) var(--motion-easing-standard),
+    text-decoration-color var(--motion-duration-ui) var(--motion-easing-standard);
 }
 
 .servicesLink:hover {
@@ -115,8 +122,14 @@
 }
 
 .servicesLink:focus-visible {
-  outline: 2px solid var(--color-mocha);
+  outline: 2px solid var(--color-charcoal);
   outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servicesLink {
+    transition: none;
+  }
 }
 
 @media (max-width: 760px) {
@@ -127,6 +140,11 @@
   .layout {
     grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
+  }
+
+  .content {
+    font-size: 1.0625rem;
+    line-height: 1.7;
   }
 
   .photoWrapper {

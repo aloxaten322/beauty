@@ -1,12 +1,14 @@
 .hero {
+  position: relative;
+  z-index: 0;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(3rem, 6vw, 5.5rem);
-  width: min(calc(100% - 3rem), 1200px);
+  width: 100%;
   min-height: min(740px, calc(100svh - 252px));
   margin-inline: auto;
-  padding-block: clamp(2rem, 4vw, 3rem);
+  padding: clamp(2rem, 4vw, 3rem) max(1.5rem, calc((100% - 1200px) / 2));
 }
 
 .heroContent {
@@ -17,35 +19,30 @@
 }
 
 .title {
-  max-width: 11ch;
+  width: min(100%, 14ch);
   color: var(--color-charcoal);
   font-family: var(--heading);
   font-size: clamp(3rem, 5.5vw, 5rem);
   font-weight: 500;
-  line-height: 0.99;
+  line-height: 1.02;
   letter-spacing: -0.035em;
 }
 
-.subtitle {
-  max-width: 32ch;
-  margin-top: 1.75rem;
-  color: var(--color-charcoal);
-  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
-  font-weight: 500;
-  line-height: 1.45;
+.firstWord {
+  display: inline-block;
 }
 
 .description {
   max-width: 42ch;
   margin-top: 1rem;
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
   font-size: 1.025rem;
   line-height: 1.75;
 }
 
 .location {
   margin-top: 1.25rem;
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
   font-size: 0.95rem;
   line-height: 1.5;
 }
@@ -75,15 +72,27 @@
 }
 
 .ctaPrimary {
-  background: var(--color-mocha);
+  border-color: var(--color-charcoal);
+  background: var(--color-charcoal);
   color: var(--color-ivory);
   cursor: pointer;
-  transition: background-color 150ms ease;
+  transition:
+    background-color var(--motion-duration-ui) var(--motion-easing-standard),
+    border-color var(--motion-duration-ui) var(--motion-easing-standard),
+    color var(--motion-duration-ui) var(--motion-easing-standard),
+    transform var(--motion-duration-ui) var(--motion-easing-standard);
 }
 
 .ctaPrimary:hover:not(:disabled) {
+  border-color: var(--color-mocha);
+  background: var(--color-mocha);
+  color: var(--color-ivory);
+}
+
+.ctaPrimary:active:not(:disabled) {
   border-color: var(--color-charcoal);
   background: var(--color-charcoal);
+  color: var(--color-ivory);
 }
 
 .ctaPrimary:disabled {
@@ -95,14 +104,33 @@
 
 .ctaSecondary {
   border-color: transparent;
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
   text-decoration: underline;
   text-underline-offset: 0.35em;
-  transition: color 150ms ease;
+  transition:
+    color var(--motion-duration-ui) var(--motion-easing-standard),
+    transform var(--motion-duration-ui) var(--motion-easing-standard);
 }
 
 .ctaSecondary:hover {
-  color: var(--color-charcoal);
+  color: var(--color-mocha);
+}
+
+.ctaPrimary:focus-visible,
+.ctaSecondary:focus-visible {
+  outline-color: var(--color-charcoal);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ctaPrimary:hover:not(:disabled),
+  .ctaSecondary:hover {
+    transform: translateY(-1px);
+  }
+
+  .ctaPrimary:active:not(:disabled),
+  .ctaSecondary:active {
+    transform: translateY(1px);
+  }
 }
 
 .portrait {
@@ -158,9 +186,9 @@
   .hero {
     grid-template-columns: minmax(0, 1fr);
     gap: 2.5rem;
-    width: min(calc(100% - 2rem), 520px);
+    width: 100%;
     min-height: 0;
-    padding-block: clamp(3rem, 9vw, 4rem);
+    padding: clamp(3rem, 9vw, 4rem) 1rem;
   }
 
   .heroContent {
@@ -168,8 +196,9 @@
   }
 
   .title {
-    max-width: 12ch;
-    font-size: clamp(2.65rem, 9vw, 4.25rem);
+    width: min(100%, 14ch);
+    font-size: clamp(2.45rem, 9vw, 4.25rem);
+    line-height: 1.02;
   }
 
   .portrait {

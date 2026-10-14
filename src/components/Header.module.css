@@ -2,8 +2,7 @@
   position: relative;
   z-index: 20;
   width: 100%;
-  border-bottom: 1px solid var(--color-sand);
-  background: var(--color-ivory);
+  background: transparent;
 }
 
 .nav {
@@ -17,11 +16,20 @@
 }
 
 .brand {
-  color: var(--color-charcoal);
-  font-family: var(--heading);
-  font-size: 1.45rem;
-  line-height: 1.15;
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: flex-start;
   text-decoration: none;
+}
+
+.brandIcon {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
 }
 
 .links {
@@ -34,18 +42,24 @@
 }
 
 .link {
+  position: relative;
   display: inline-flex;
   min-height: 44px;
   align-items: center;
-  color: var(--color-mocha);
+  color: var(--color-charcoal);
   font-size: 0.94rem;
-  text-decoration: none;
-  transition: color 180ms ease;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.35em;
+  transition:
+    color var(--motion-duration-ui) var(--motion-easing-standard),
+    text-decoration-color var(--motion-duration-ui) var(--motion-easing-standard);
 }
 
 .link:hover,
 .link.active {
   color: var(--color-charcoal);
+  text-decoration-color: currentColor;
 }
 
 .booking {
@@ -62,7 +76,10 @@
   font-size: 0.94rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 180ms ease, border-color 180ms ease;
+  transition:
+    background-color var(--motion-duration-ui) var(--motion-easing-standard),
+    border-color var(--motion-duration-ui) var(--motion-easing-standard),
+    transform var(--motion-duration-ui) var(--motion-easing-standard);
 }
 
 .booking:hover:not(:disabled) {
@@ -87,6 +104,16 @@
   border-radius: 50%;
   background: transparent;
   cursor: pointer;
+  transition:
+    background-color var(--motion-duration-ui) var(--motion-easing-standard),
+    border-color var(--motion-duration-ui) var(--motion-easing-standard);
+}
+
+@media (hover: hover) {
+  .burger:hover {
+    border-color: var(--color-mocha);
+    background-color: var(--color-sand);
+  }
 }
 
 .burgerIcon {
@@ -106,14 +133,25 @@
   content: "";
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .booking:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  .booking:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+}
+
 @media (max-width: 760px) {
   .nav {
     width: min(calc(100% - 2rem), 1200px);
     min-height: 72px;
   }
 
-  .brand {
-    font-size: 1.3rem;
+  .brandIcon {
+    width: 30px;
+    height: 30px;
   }
 
   .burger {
@@ -155,7 +193,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .link,
-  .booking {
+  .booking,
+  .burger {
     transition: none;
   }
 }

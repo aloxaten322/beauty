@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { about, displayMasterName, masterInfo } from "../data/masterData";
+import { about, masterInfo } from "../data/masterData";
 import { SEO } from "./SEO";
 import styles from "./About.module.css";
 
 const About: React.FC = () => {
+  const storyParagraphs = about.story.split(/\n\s*\n/).filter((paragraph) => paragraph.trim());
   const hasConfirmedProfile = Boolean(
-    about.story.trim() ||
+    storyParagraphs.length ||
       about.specialization.trim() ||
-      about.experience?.trim() ||
       about.education?.trim() ||
       about.principles.length,
   );
@@ -16,28 +16,25 @@ const About: React.FC = () => {
   return (
     <>
       <SEO
-        title={`О мастере | ${displayMasterName} | ${masterInfo.city}`}
-        description="Информация о мастере и услугах в Костанае."
+        route="/about"
       />
       <section className={styles.about} aria-labelledby="about-heading">
-        <h1 id="about-heading" className={styles.title}>
+        <h1 id="about-heading" className={styles.title} data-reveal>
           О мастере
         </h1>
         <div className={styles.layout}>
-          <div className={styles.content}>
+          <div className={styles.content} data-reveal>
             {hasConfirmedProfile ? (
               <>
-                {about.story.trim() && <p className={styles.story}>{about.story}</p>}
+                {storyParagraphs.map((paragraph, index) => (
+                  <p key={index} className={styles.story}>
+                    {paragraph.trim()}
+                  </p>
+                ))}
                 {about.specialization.trim() && (
                   <div className={styles.detail}>
                     <h2 className={styles.detailTitle}>Специализация</h2>
                     <p>{about.specialization}</p>
-                  </div>
-                )}
-                {about.experience?.trim() && (
-                  <div className={styles.detail}>
-                    <h2 className={styles.detailTitle}>Опыт</h2>
-                    <p>{about.experience}</p>
                   </div>
                 )}
                 {about.education?.trim() && (
@@ -68,7 +65,7 @@ const About: React.FC = () => {
             )}
           </div>
 
-          <figure className={styles.photoWrapper}>
+          <figure className={styles.photoWrapper} data-reveal>
             {about.photo ? (
               <img
                 src={about.photo}
