@@ -42,10 +42,6 @@
   border-bottom: 1px solid var(--color-sand);
 }
 
-.serviceItem:last-child {
-  background: color-mix(in srgb, var(--color-ivory) 88%, transparent);
-}
-
 .serviceItemWithImage {
   grid-template-columns: minmax(8.5rem, 11rem) minmax(0, 1fr) minmax(10rem, 13rem);
   align-items: center;
@@ -192,7 +188,7 @@
     padding-block: 1.5rem;
   }
 
-  .serviceItem:nth-child(n + 5) {
+  .serviceItem:nth-child(5) {
     background: color-mix(in srgb, var(--color-ivory) 88%, transparent);
   }
 
